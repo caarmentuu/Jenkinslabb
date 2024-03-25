@@ -91,8 +91,8 @@ Book AUDI Q7
 Pick dates for rental
     [Documentation]     Välj datum för bil hyrning och fortsätt
     [Tags]              VG_TEST_date for rental
-    Input Text          //*[@id="start"]    0321
-    Input Text          //*[@id="end"]    0321
+    Input Text          //*[@id="start"]    0410
+    Input Text          //*[@id="end"]    0410
     Click Button        //button[@id='continue']
     Wait Until Page Contains    2024-03-21
 
