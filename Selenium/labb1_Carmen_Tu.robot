@@ -26,7 +26,7 @@ ${CVC}               222
 
 *** Test Cases ***
 test 1 flöde boka bil och verifiering
-     Given Log in       **********************
+    Given Log in       ${mail}     ${password}
      When Pick dates for rental
      Then Book AUDI Q7
      And Type in card info
