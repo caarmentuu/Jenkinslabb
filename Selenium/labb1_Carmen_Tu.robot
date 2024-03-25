@@ -94,7 +94,7 @@ Pick dates for rental
     Input Text          //*[@id="start"]    0410
     Input Text          //*[@id="end"]    0410
     Click Button        //button[@id='continue']
-    Wait Until Page Contains    2024-03-21
+    Wait Until Page Contains    2024-04-10
 
 
 Select car brand and amount of passengers
