@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="sv"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RunningApp.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">trailrunner</a> &gt; <a href="index.source.html" class="el_package">se.iths</a> &gt; <span class="el_source">RunningApp.java</span></div><h1>RunningApp.java</h1><pre class="source lang-java linenums">package se.iths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class RunningApp {
+    private ArrayList&lt;RunningSession&gt; runningSessions;
+    private Map&lt;String, RunningSession&gt; identifierMap;
+    private int userHeight; // in cm
+    private int userWeight; // in kg
+
+<span class="fc" id="L12">    public RunningApp() {</span>
+<span class="fc" id="L13">        runningSessions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L14">        identifierMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L15">    }</span>
+
+    public void saveRunningSession(RunningSession session) {
+<span class="fc" id="L18">        validateRunningSession(session);</span>
+
+<span class="fc" id="L20">        String identifier = generateIdentifier();</span>
+<span class="fc" id="L21">        session.setIdentifier(identifier);</span>
+<span class="fc" id="L22">        runningSessions.add(session);</span>
+<span class="fc" id="L23">        identifierMap.put(identifier, session);</span>
+<span class="fc" id="L24">    }</span>
+
+    private void validateRunningSession(RunningSession session) {
+<span class="pc bpc" id="L27" title="1 of 4 branches missed.">        if (session.getDistance() &lt;= 0 || session.getTime().getTotalSeconds() &lt;= 0) {</span>
+<span class="fc" id="L28">            throw new IllegalArgumentException(&quot;Distance and time must be greater than zero.&quot;);</span>
+        }
+<span class="fc" id="L30">    }</span>
+
+    public int getTotalSessions() {
+<span class="fc" id="L33">        return runningSessions.size();</span>
+    }
+
+    public void setUserData(int height, int weight) {
+<span class="fc" id="L37">        this.userHeight = height;</span>
+<span class="fc" id="L38">        this.userWeight = weight;</span>
+<span class="fc" id="L39">    }</span>
+
+    public double calculateBMI() {
+<span class="fc" id="L42">        double heightInMeter = userHeight / 100.0;</span>
+<span class="fc" id="L43">        return userWeight / (heightInMeter * heightInMeter);</span>
+    }
+
+    public double calculateTotalDistance() {
+<span class="fc" id="L47">        return runningSessions.stream().mapToDouble(RunningSession::getDistance).sum();</span>
+    }
+
+    public double calculateAverageDistance() {
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        return runningSessions.isEmpty() ? 0.0 : calculateTotalDistance() / runningSessions.size();</span>
+    }
+
+    public String printRunningSessionDetails(String identifier) {
+<span class="fc" id="L55">        RunningSession session = identifierMap.get(identifier);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (session != null) {</span>
+<span class="fc" id="L57">            return session.toString();</span>
+        }
+<span class="nc" id="L59">        throw new IllegalArgumentException(&quot;Invalid identifier.&quot;);</span>
+    }
+
+    public boolean deleteRunningSession(String identifier) {
+<span class="fc" id="L63">        RunningSession session = identifierMap.remove(identifier);</span>
+<span class="pc bpc" id="L64" title="1 of 4 branches missed.">        return session != null &amp;&amp; runningSessions.remove(session);</span>
+    }
+
+    private String generateIdentifier() {
+        String identifier;
+        do {
+<span class="fc" id="L70">            identifier = java.util.UUID.randomUUID().toString();</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        } while (identifierMap.containsKey(identifier));</span>
+<span class="fc" id="L72">        return identifier;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
