@@ -26,8 +26,12 @@ pipeline {
         stage('selenium and report') {
             steps {
               bat 'robot C:/Users/Carmen/.jenkins/workspace/PipelineLabb'
+                post {
+                    always  {
                 robot outputPath: '.', logFileName: 'log.html', outputFileName: 'output.xml', reportFileName: 'report.html', passThreshold: 100, unstableThreshold: 75.0
-            }
+                }
+              }
+            } 
         }
     }
 }
